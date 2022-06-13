@@ -1,16 +1,3 @@
-/**
-    Layout
- 1. Google Fonts
- 2. Root
- 3. Reset
- 4. Utilities
- 5. Main
-
-*/
-
-/* Google Fonts - (400, 700) */
-@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700&family=Lexend+Deca&display=swap');
-
 /***************
     Root
 ****************/
@@ -19,15 +6,13 @@
     --clr-primary-800: hsl(179, 100%, 13%);
     --clr-secondary: hsl(31, 77%, 52%);
 
-    --card-1: var(--clr-secondary);
-    --card-2: var(--clr-primary-600);
-    --card-3: var(--clr-primary-800);
+    --neutral-100: hsl(0, 0%, 95%);
+    --neutral-200: hsla(0, 0%, 100%, 0.75);
 
-    --clr-neutral-200: hsla(0, 0%, 100%, 0.75);
-    --clr-neutral-300: hsl(0, 0%, 95%);
+    --ff-primary: 'Lexend Deca', sans-serif;
+    --ff-accent: 'Big Shoulders Display', cursive;
 
-    --ff-body: 'Lexend Deca', sans-serif;
-    --ff-heading: 'Big Shoulders Display', cursive;
+    --fs-700: 2.2rem;
     --fs-400: 0.9375rem; /* 15px */
 
     --fw-400: 400;
@@ -43,15 +28,10 @@
     box-sizing: border-box;
 }
 
-html,
-body {
+body,
+h1, h2, h3,
+p {
     margin: 0;
-    padding: 0;
-}
-
-body {
-    min-height: 100vh;
-    line-height: 1.6;
 }
 
 img {
@@ -59,16 +39,40 @@ img {
     display: block;
 }
 
-h1, p {
-    margin: 0;
+/***************
+    Global
+****************/
+body {
+    min-height: 100vh;
+    
+    display: grid;
+    place-items: center;
+    
+    font-family: var(--ff-primary);
+    font-size: var(--fs-400);
+    font-weight: var(--fw-400);
+    line-height: 1.6;
+    
+    background-color: var(--neutral-100);
+    color: var(--neutral-200);
+}
+
+h1, 
+h2,
+h3 {
+    line-height: 1.1;
 }
 
 /***************
-    Utilities
+    Composition
 ****************/
 .container {
     width: min(100% - 2rem, 54.5rem);
     margin-inline: auto;
+}
+
+.flow > *:where(:not(:first-child)) {
+    margin-top: var(--flow-spacer, 1rem);
 }
 
 .flex {
@@ -81,101 +85,82 @@ h1, p {
     gap: var(--gap, 1rem);
 }
 
-.flow > *:where(:not(:first-child)) {
-    margin-top: var(--flow-space, 1.5rem);
-}
-
 /***************
-    Main
+    Block
 ****************/
-body {
-    display: grid;
-    place-items: center;
-
-    font-family: var(--ff-body);
-    font-size: var(--fs-400);
-    font-weight: var(--fw-400);
-
-    background-color: var(--clr-neutral-300);
-}
-
-/* cards */
 .cards {
     --gap: 0;
     margin-block: 2rem;
 }
 
 .card {
-    width: min(100%, 18.16rem); /* 54.5 / 3 = 18.16rem */
+    --flow-spacer: 2rem;
+    width: min(100%, 19rem);
     margin-inline: auto;
 
-    padding: 2rem 2.5rem;
+    padding: 2.5rem;
 }
 
 .card--1 {
-    color: var(--card-1);
-    background-color: var(--card-1);
-
+    background-color: var(--clr-secondary);
+    color: var(--clr-secondary);
     border-radius: 10px 10px 0 0;
 }
 
 .card--2 {
-    color: var(--card-2);
-    background-color: var(--card-2);
+    background-color: var(--clr-primary-600);
+    color: var(--clr-primary-600);
 }
 
 .card--3 {
-    color: var(--card-3);
-    background-color: var(--card-3);
-
+    background-color: var(--clr-primary-800);
+    color: var(--clr-primary-800);
     border-radius: 0 0 10px 10px;
 }
 
-/* 700px */
-@media only screen and (min-width: 50rem) {
-    .cards {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .card--1 {
-        border-radius: 10px 0 0 10px;
-    }
-    
-    .card--3 {
-        border-radius: 0 10px 10px 0;
-    }
-}
-
-.card__title {
-    font-family: var(--ff-heading);
+.card__title { 
+    font-family: var(--ff-accent);
+    font-size: var(--fs-700);
     font-weight: var(--fw-700);
     text-transform: uppercase;
 
-    color: var(--clr-neutral-300);
+    color: var(--neutral-100);
 }
 
 .card__content {
-    color: var(--clr-neutral-200);
-    margin-bottom: 2.5rem;
+    color: var(--neutral-200);
 }
 
 .card__link {
     display: inline-block;
-    max-width: fit-content;
+    width: fit-content;
 
     text-align: center;
     text-decoration: none;
 
     padding: .7rem 2rem;
     
-    background-color: var(--clr-neutral-300);
+    background-color: var(--neutral-100);
     color: inherit;
 
-    outline: 1px solid var(--clr-neutral-300);
+    outline: 1px solid var(--neutral-100);
     border-radius: 30px;
 }
 
-.card__link:hover {
+.card__link:hover,
+.card__link:focus {
     background-color: transparent;
-    color: var(--clr-neutral-300);
+    color: var(--neutral-100);
+}
+
+/* 700px */
+@media only screen and (min-width: 50em) {
+    .cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .card--1 { border-radius: 10px 0 0 10px; }
+    .card--3 { border-radius: 0 10px 10px 0; }
+
+    .card__content { margin-bottom: 2rem; }
 }
